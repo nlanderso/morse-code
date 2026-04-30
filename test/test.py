@@ -5,6 +5,19 @@ import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
 
+@cocotb.test()
+async def test_dummy(dut):    
+    # Start the clock
+    clock = Clock(dut.clk, 10, units="ns")
+    cocotb.start_soon(clock.start())
+
+    # Reset the design
+    dut.rst_n.value = 0
+    await ClockCycles(dut.clk, 10)
+    dut.rst_n.value = 1
+    
+    await ClockCycles(dut.clk, 10)
+
 # def start_clock(dut):
 #     cocotb.start_soon(Clock(dut.clk, 10, units="ns").start())
 
