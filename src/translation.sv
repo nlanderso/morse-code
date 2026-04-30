@@ -2,10 +2,12 @@ module translation_fsm
     (input logic rst_n, clk, end_of_letter, end_of_ditdah, dah,
      output logic [6:0] letter);
 
-    enum logic [4:0] {START, A, B, C, D, E, F, G, 
+    typedef enum logic [4:0] {START, A, B, C, D, E, F, G, 
                              H, I, J, K, L, M, N, 
                              O, P, Q, R, S, T, U, 
-                             V, W, X, Y, Z} state, next_state;
+                             V, W, X, Y, Z} state_t;
+                             
+    state_t state, next_state;
 
     // Output logic 
     always_comb begin
@@ -49,38 +51,38 @@ module translation_fsm
         else if (!end_of_ditdah) next_state = state;
         else begin
             case (state)
-                START: next_state = (dah) ? T : E;
-                T: next_state = (dah) ? M : N;
-                M: next_state = (dah) ? O : G;
-                O: next_state = O;
+                START: next_state = (dah) ? state_t'(T) : state_t'(E);
+                T: next_state = (dah) ? state_t'(M) : state_t'(N);
+                M: next_state = (dah) ? state_t'(O) : state_t'(G);
+                O: next_state = state_t'(O);
 
-                G: next_state = (dah) ? Q : Z;
-                Q: next_state = Q;
-                Z: next_state = Z;
+                G: next_state = (dah) ? state_t'(Q) : state_t'(Z);
+                Q: next_state = state_t'(Q);
+                Z: next_state = state_t'(Z);
 
-                N: next_state = (dah) ? K : D;
-                K: next_state = (dah) ? Y : C;
-                Y: next_state = Y;
-                C: next_state = C;
+                N: next_state = (dah) ? state_t'(K) : state_t'(D);
+                K: next_state = (dah) ? state_t'(Y) : state_t'(C);
+                Y: next_state = state_t'(Y);
+                C: next_state = state_t'(C);
 
-                D: next_state = (dah) ? X : B;
-                X: next_state = X;
-                B: next_state = B;
+                D: next_state = (dah) ? state_t'(X) : state_t'(B);
+                X: next_state = state_t'(X);
+                B: next_state = state_t'(B);
 
-                E: next_state = (dah) ? A : I;
-                A: next_state = (dah) ? W : R;
-                W: next_state = (dah) ? J : P;
-                J: next_state = J;
-                P: next_state = P;
-                R: next_state = (dah) ? R : L;
-                L: next_state = L;
+                E: next_state = (dah) ? state_t'(A) : state_t'(I);
+                A: next_state = (dah) ? state_t'(W) : state_t'(R);
+                W: next_state = (dah) ? state_t'(J) : state_t'(P);
+                J: next_state = state_t'(J);
+                P: next_state = state_t'(P);
+                R: next_state = (dah) ? state_t'(R) : state_t'(L);
+                L: next_state = state_t'(L);
 
-                I: next_state = (dah) ? U : S;
-                U: next_state = (dah) ? U : F;
-                F: next_state = F;
-                S: next_state = (dah) ? V : H;
-                V: next_state = V;
-                H: next_state = H;
+                I: next_state = (dah) ? state_t'(U) : state_t'(S);
+                U: next_state = (dah) ? state_t'(U) : state_t'(F);
+                F: next_state = state_t'(F);
+                S: next_state = (dah) ? state_t'(V) : state_t'(H);
+                V: next_state = state_t'(V);
+                H: next_state = state_t'(H);
 
                 default: next_state = state;
             endcase
