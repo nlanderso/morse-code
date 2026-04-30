@@ -29,7 +29,7 @@ module tt_um_nlanderso_morse_code (
   // Button press is the input
   // Output 8 bits to control the seven segments
   // Output 8 LED bits but only care about the LSB
-  ChipInterface morse_code(.AA(uo_out[0]), .AB(uo_out[1]), .AC(uo_out[2]), 
+  ChipInterface chip_interface(.AA(uo_out[0]), .AB(uo_out[1]), .AC(uo_out[2]), 
                            .AD(uo_out[3]), .AE(uo_out[4]), .AF(uo_out[5]), 
                            .AG(uo_out[6]), .CAT(uo_out[7]), .led(led_out),
                            .clock(clk), .reset_n(rst_n), .btn_up(ui_in[0]));

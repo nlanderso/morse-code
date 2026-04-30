@@ -21,7 +21,7 @@ keep time.
 
 Use an external button to input the Morse code. Use an external LED to help
 keep time as you input. The decoded letters should appear on the external 
-seven segment displays
+seven segment displays.
 
 ## External hardware
 
