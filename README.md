@@ -1,42 +1,35 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# Morse Code Translator
+
+This project is a SystemVerilog implementation of a Morse code translator.
+
+It decodes a Morse code input into alphabetical characters A-Z and
+displays the translation on seven segment displays. Users input Morse code 
+with an external push button and a flashing LED light blinks every one second
+to help users stay on-beat. The most recent two translated characters are 
+displayed on the two seven segment displays of the Digilent Pmod SSD.
+
+This is a Tiny Tapeout Verilog project.
 
 - [Read the documentation for project](docs/info.md)
 
-## What is Tiny Tapeout?
+## How it works
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+Morse code is input using a push button. A hold for one second is a "dit" 
+(a dot .) and a hold for three seconds is a "dah" (a dash -). A release for 
+one second distinguishes the end of a dit or dah, a release for three seconds 
+is the end of a letter, and a release for seven seconds is the end of a word. 
+This matches with standard Morse code conventions. The button press is 
+translated into the characters A-Z and output as seven-segment encodings to be 
+displayed on two seven segment displays through the Digilent Pmod SSD. An 
+external LED blinks at a 1 second rate to help users keep time.
 
-To learn more and get started, visit https://tinytapeout.com.
+## How to test it
 
-## Set up your Verilog project
-
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
-
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
-
-## Enable GitHub actions to build the results page
-
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
-
-## Resources
-
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+Test the SV modules with test/tb_counting.sv and tb_translation.sv. To verify
+the translator, connect the external hardware (push button, LED, Digilent
+Pmod SSD) according to the pinout defined in info.yaml. Use an external button 
+to input the Morse code and input test characters according to the Morse code
+timing conventions. Verify that the decoded letters appear on the external 
+seven segment displays. See docs/info.md for more information.
