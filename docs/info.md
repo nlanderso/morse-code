@@ -44,6 +44,6 @@ seven segment displays.
 
 ## External hardware
 
-Tactile switch/push button
-LED
-Digilent Pmod SSD
+- Tactile switch/push button
+- LED
+- Digilent Pmod SSD
